@@ -2,9 +2,9 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Bus extends CI_Model
+class Terminal extends CI_Model
 {
-	//Constructor
+	// Constructor
 	public function __construct()
 	{
 		parent::__construct();
@@ -15,50 +15,50 @@ class Bus extends CI_Model
 	////////////////////////////////////////////////////////////////
 
 	// C R E A T E
-	public function save_Bus($data)
+	public function save_Terminal($data)
 	{
-		$this->db->insert('buses', $data);
+		$this->db->insert('terminals', $data);
 		return TRUE;
 	}
 
 	// R E A D
-	public function show_Bus()
+	public function show_Terminal()
 	{
 		$this->db->select("*");
-		$this->db->from('buses');
+		$this->db->from('terminals');
 		$query=$this->db->get();
 		return $query->result_array();
 	}
 
 	// U P D A T E
-	public function edit_Bus_Data($bus_id)
+	public function edit_Terminal_Data($terminal_id)
 	{
 		$this->db->select("*");
-		$this->db->from('buses');
-		$this->db->where('bus_id', $bus_id);
+		$this->db->from('terminals');
+		$this->db->where('terminal_id', $terminal_id);
 		$query = $this->db->get();
 		return $query->row_array();
 	}
 
-	public function update_Bus_Data($data)
+	public function update_Terminal_Data($data)
 	{
-		$this->db->where(array('bus_id'=>$data['bus_id']));
-		$this->db->update('buses', $data);
+		$this->db->where(array('terminal_id'=>$data['terminal_id']));
+		$this->db->update('terminals', $data);
 		return TRUE;
 	}
 
 	// D E L E T E
-	public function delete_Bus_Data($data)
+	public function delete_Terminal_Data($data)
 	{
-		$this->db->where(array('bus_id'=>$data['bus_id']));
-		$this->db->delete('buses');
+		$this->db->where(array('terminal_id'=>$data['terminal_id']));
+		$this->db->delete('terminals');
 		return TRUE;
 	}
 
 	////////////////////////////////////////////////////////////////
 	// E  N  D    O  F    C  R  U  D    F  U  N  C  T  I  O  N  S //
 	////////////////////////////////////////////////////////////////
-	
+
 }
 
-// END OF BUS MODEL
+// END OF TERMINAL MODEL

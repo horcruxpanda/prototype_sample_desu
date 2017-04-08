@@ -3,6 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class BusController extends CI_Controller {
 
+	// Constructor
 	public function __construct()
 	{
 		parent::__construct();
@@ -10,6 +11,7 @@ class BusController extends CI_Controller {
 		$this->load->model('Bus_type');
 	}
 
+	// Index Function
 	public function index()
 	{
 		$data['title']='BUS CRUD';
@@ -28,6 +30,11 @@ class BusController extends CI_Controller {
 		$this->load->view('bus_crud', $data);
 	}
 
+	////////////////////////////////////////////////////////////////
+	//          C  R  U  D    F  U  N  C  T  I  O  N  S           //
+	////////////////////////////////////////////////////////////////
+
+	// C R E A T E
 	public function saveBus()
 	{
 		$validate = array (
@@ -56,6 +63,35 @@ class BusController extends CI_Controller {
 			$info['message']="You have successfully saved your data!";
 		}
 		$this->output->set_content_type('application/json')->set_output(json_encode($info));
+	}
+
+	// R E A D
+	public function show_Bus()
+	{
+		$bus_table = $this->Bus->show_Bus();
+		$data = array();
+		foreach ($bus_table as $rows) {
+			array_push($data,
+				array(
+					$rows['bus_id'],
+					$rows['bus_name'],
+					$rows['plate_number'],
+					$rows['bus_desc'],
+					$rows['bus_type'],
+					'<a href="javascript:void(0)" class="btn btn-info btn-sm" onclick="edit_bus('."'".$rows['bus_id']."'".')">Edit</a>'.
+					'&nbsp;<a href="javascript:void(0)" class="btn btn-danger btn-sm" onclick="delete_bus('."'".$rows['bus_id']."'".')">Delete</a>'
+				)
+			);
+		}
+		$this->output->set_content_type('application/json')->set_output(json_encode(array('data'=>$data)));
+	}
+
+	// U P D A T E
+	public function edit_Bus()
+	{
+		$bus_id=$this->input->post('bus_id');
+		$data=$this->Bus->edit_Bus_Data($bus_id);
+		$this->output->set_content_type('application/json')->set_output(json_encode($data));
 	}
 
 	public function updateBus()
@@ -90,33 +126,7 @@ class BusController extends CI_Controller {
 		$this->output->set_content_type('application/json')->set_output(json_encode($info));
 	}
 
-	public function show_Bus()
-	{
-		$bus_table = $this->Bus->show_Bus();
-		$data = array();
-		foreach ($bus_table as $rows) {
-			array_push($data,
-				array(
-					$rows['bus_id'],
-					$rows['bus_name'],
-					$rows['plate_number'],
-					$rows['bus_desc'],
-					$rows['bus_type'],
-					'<a href="javascript:void(0)" class="btn btn-info btn-sm" onclick="edit_bus('."'".$rows['bus_id']."'".')">Edit</a>'.
-					'&nbsp;<a href="javascript:void(0)" class="btn btn-danger btn-sm" onclick="delete_bus('."'".$rows['bus_id']."'".')">Delete</a>'
-				)
-			);
-		}
-		$this->output->set_content_type('application/json')->set_output(json_encode(array('data'=>$data)));
-	}
-
-	public function edit_Bus()
-	{
-		$bus_id=$this->input->post('bus_id');
-		$data=$this->Bus->edit_Bus_Data($bus_id);
-		$this->output->set_content_type('application/json')->set_output(json_encode($data));
-	}
-
+	// D E L E T E
 	public function delete_Bus()
 	{
 		$validate=array(
@@ -137,4 +147,10 @@ class BusController extends CI_Controller {
 		$this->output->set_content_type('application/json')->set_output(json_encode($info));
 	}
 
+	////////////////////////////////////////////////////////////////
+	// E  N  D    O  F    C  R  U  D    F  U  N  C  T  I  O  N  S //
+	////////////////////////////////////////////////////////////////
+
 }
+
+// END OF BUS CONTROLLER

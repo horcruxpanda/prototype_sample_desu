@@ -4,6 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <html lang="en">
 
 	<head>
+
 		<meta charset="utf-8">
 		<title><?php echo $title; ?></title>
 
@@ -62,6 +63,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		</div>
 		
 		<script type="text/javascript">
+
+			////////////////////////////////////////////////////////////////
+			//          C  R  U  D    F  U  N  C  T  I  O  N  S           //
+			////////////////////////////////////////////////////////////////
+
+			// C R E A T E
 			function save_bus_type() {
 				$.ajax({
 					url: "<?php echo site_url('bus_typecontroller/saveBusType') ?>",
@@ -84,6 +91,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				})
 			}
 
+			// R E A D
+			$("#bus_type_data").DataTable({
+				"ajax":{
+					"url":"<?php echo site_url('bus_typecontroller/show_Bus_Type') ?>",
+					"type":"POST"
+				}
+			})
+
+			// U P D A T E
 			function edit_bus_type(bus_type_id) {
 				$.ajax({
 					url: "<?php echo site_url('bus_typecontroller/edit_Bus_Type') ?>",
@@ -120,6 +136,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				})
 			}
 
+			// D E L E T E
 			function delete_bus_type(bus_type_id) {
 				if(confirm('Do you really want to delete this Bus Type Record ??')){
 					$.ajax({
@@ -144,15 +161,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				}
 			}
 
-			$("#bus_type_data").DataTable({
-				"ajax":{
-					"url":"<?php echo site_url('bus_typecontroller/show_Bus_Type') ?>",
-					"type":"POST"
-				}
-			})
+			////////////////////////////////////////////////////////////////
+			// E  N  D    O  F    C  R  U  D    F  U  N  C  T  I  O  N  S //
+			////////////////////////////////////////////////////////////////
 
-		</script>
-	
+			// END OF BUS TYPE JAVASCRIPT
+		</script>	
+		
 	</body>
 
 </html>

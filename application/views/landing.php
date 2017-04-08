@@ -19,6 +19,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 	<a type="button" class="btn btn-lg btn-primary" href= '<?php  echo site_url('buscontroller') ?>' > BUS </a>
 	<a type="button" class="btn btn-lg btn-primary" href= '<?php  echo site_url('bus_typecontroller') ?>' > BUS TYPE </a>
+	<a type="button" class="btn btn-lg btn-primary" href= '<?php  echo site_url('terminalcontroller') ?>' > TERMINAL </a>
 
 </body>
 </html>

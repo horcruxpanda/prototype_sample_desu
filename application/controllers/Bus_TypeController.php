@@ -3,28 +3,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Bus_TypeController extends CI_Controller {
 
-	/**
-	 * Index Page for this controller.
-	 *
-	 * Maps to the following URL
-	 * 		http://example.com/index.php/welcome
-	 *	- or -
-	 * 		http://example.com/index.php/welcome/index
-	 *	- or -
-	 * Since this controller is set as the default controller in
-	 * config/routes.php, it's displayed at http://example.com/
-	 *
-	 * So any other public methods not prefixed with an underscore will
-	 * map to /index.php/welcome/<method_name>
-	 * @see https://codeigniter.com/user_guide/general/urls.html
-	 */
-
+	// Constructor
 	public function __construct()
 	{
 		parent::__construct();
 		$this->load->model('Bus_type');
 	}
 
+	// Index Function
 	public function index()
 	{
 		$data['title']='BUS TYPE CRUD';
@@ -32,6 +18,11 @@ class Bus_TypeController extends CI_Controller {
 		$this->load->view('bus_type_crud', $data);
 	}
 
+	////////////////////////////////////////////////////////////////
+	//          C  R  U  D    F  U  N  C  T  I  O  N  S           //
+	////////////////////////////////////////////////////////////////
+
+	// C R E A T E
 	public function saveBusType()
 	{
 		$validate = array (
@@ -57,6 +48,7 @@ class Bus_TypeController extends CI_Controller {
 		$this->output->set_content_type('application/json')->set_output(json_encode($info));
 	}
 
+	// R E A D
 	public function show_Bus_Type()
 	{
 		$bus_type_table = $this->Bus_type->show_Bus_Type();
@@ -74,6 +66,7 @@ class Bus_TypeController extends CI_Controller {
 		$this->output->set_content_type('application/json')->set_output(json_encode(array('data'=>$data)));
 	}
 
+	// U P D A T E
 	public function edit_Bus_Type()
 	{
 		$bus_type_id=$this->input->post('bus_type_id');
@@ -108,6 +101,7 @@ class Bus_TypeController extends CI_Controller {
 		$this->output->set_content_type('application/json')->set_output(json_encode($info));
 	}
 
+	// D E L E T E
 	public function delete_Bus_Type()
 	{
 		$validate=array(
@@ -128,4 +122,10 @@ class Bus_TypeController extends CI_Controller {
 		$this->output->set_content_type('application/json')->set_output(json_encode($info));
 	}
 
+	////////////////////////////////////////////////////////////////
+	// E  N  D    O  F    C  R  U  D    F  U  N  C  T  I  O  N  S //
+	////////////////////////////////////////////////////////////////
+
 }
+
+// END OF BUS TYPE CONTROLLER

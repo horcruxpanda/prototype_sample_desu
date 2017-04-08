@@ -4,6 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <html lang="en">
 
 	<head>
+
 		<meta charset="utf-8">
 		<title><?php echo $title; ?></title>
 
@@ -25,6 +26,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	</head>
 
 	<body>
+
 		<div class="row">
 			<div class="container">
 				<div class="col-md-6">
@@ -87,6 +89,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		</div>
 
 		<script type="text/javascript">
+
+			////////////////////////////////////////////////////////////////
+			//          C  R  U  D    F  U  N  C  T  I  O  N  S           //
+			////////////////////////////////////////////////////////////////
+
+			// C R E A T E
 			function save_bus() {
 				$.ajax({
 					url: "<?php echo site_url('buscontroller/saveBus') ?>",
@@ -105,6 +113,34 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 								window.location.reload()
 							}, 400);
 						}
+					}
+				})
+			}
+
+			// R E A D
+			$("#bus_data").DataTable({
+				"ajax":{
+					"url":"<?php echo site_url('buscontroller/show_Bus') ?>",
+					"type":"POST"
+				}
+			})
+
+			// U P D A T E
+			function edit_bus(bus_id) {
+				$.ajax({
+					url: "<?php echo site_url('buscontroller/edit_Bus') ?>",
+					type: 'POST',
+					dataType: 'json',
+					data: 'bus_id='+bus_id,
+					encode:true,
+					success:function (data) {
+						$('.save').attr('disabled', true);
+						$('.update').removeAttr('disabled');
+						$('input[name="bus_id"]').val(data.bus_id);
+						$('input[name="bus_name"]').val(data.bus_name);
+						$('input[name="plate_number"]').val(data.plate_number);
+						$('textarea[name="bus_desc"]').val(data.bus_desc);
+						$('select[name="bus_type"]').val(data.bus_type);
 					}
 				})
 			}
@@ -129,25 +165,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				})
 			}
 
-			function edit_bus(bus_id) {
-				$.ajax({
-					url: "<?php echo site_url('buscontroller/edit_Bus') ?>",
-					type: 'POST',
-					dataType: 'json',
-					data: 'bus_id='+bus_id,
-					encode:true,
-					success:function (data) {
-						$('.save').attr('disabled', true);
-						$('.update').removeAttr('disabled');
-						$('input[name="bus_id"]').val(data.bus_id);
-						$('input[name="bus_name"]').val(data.bus_name);
-						$('input[name="plate_number"]').val(data.plate_number);
-						$('textarea[name="bus_desc"]').val(data.bus_desc);
-						$('select[name="bus_type"]').val(data.bus_type);
-					}
-				})
-			}
-
+			// D E L E T E
 			function delete_bus(bus_id) {
 				if(confirm('Do you really want to delete this Bus Record ??')){
 					$.ajax({
@@ -172,12 +190,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				}
 			}
 
-			$("#bus_data").DataTable({
-				"ajax":{
-					"url":"<?php echo site_url('buscontroller/show_Bus') ?>",
-					"type":"POST"
-				}
-			})
+			////////////////////////////////////////////////////////////////
+			// E  N  D    O  F    C  R  U  D    F  U  N  C  T  I  O  N  S //
+			////////////////////////////////////////////////////////////////
+
+			// END OF BUS JAVASCRIPT
 		</script>
+
 	</body>
+	
 </html>
